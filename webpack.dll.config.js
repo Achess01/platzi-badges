@@ -1,5 +1,7 @@
 const path = require('path') 
 const webpack = require('webpack')
+const TerserJSPlugin = require('terser-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 
 module.exports = {
@@ -17,7 +19,11 @@ module.exports = {
         filename: 'js/[name].[hash].dll.js',
         library: '[name]'         
     },    
- 
+    optimization: {
+        minimizer: [new TerserJSPlugin(), 
+        new OptimizeCSSAssetsPlugin()
+    ]
+    },
     plugins: [        
         new webpack.DllPlugin({
             name: '[name]',             
